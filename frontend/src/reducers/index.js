@@ -1,22 +1,6 @@
 import { combineReducers } from 'redux';
-import { ADD_POST, ADD_COMMENT } from '../actions';
 
-function posts(state = {}, action) {
-  switch (action.type) {
-    case ADD_POST:
-      return state;
-    default:
-      return state;
-  }
-}
+import categories from './categories';
+import posts from './posts';
 
-function comments(state = {}, action) {
-  switch (action.type) {
-    case ADD_COMMENT:
-      return state;
-    default:
-      return state;
-  }
-}
-
-export default combineReducers({ posts, comments });
+export default combineReducers({ categories, posts });
