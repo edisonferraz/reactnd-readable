@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PostsContainer from 'containers/PostsContainer';
 
-class PostsPage extends Component {
-  render() {
-    return <PostsContainer />;
-  }
-}
+const PostsPage = props => <PostsContainer {...props} />;
 
 export default PostsPage;
