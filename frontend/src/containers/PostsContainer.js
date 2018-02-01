@@ -1,30 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCategories, getPosts } from 'actions';
+import { getCategories, getPosts, getPostsByCategory } from 'actions';
 import CategoryMenu from 'components/CategoryMenu';
 import PostsList from 'components/PostsList';
 
 class PostsContainer extends Component {
   componentDidMount() {
+    this.getPosts();
     this.props.getCategories();
-    this.props.getPosts();
   }
 
-  render() {
-    const { categories, posts, match } = this.props;
-    const categoryName = match.params.name;
+  componentDidUpdate(prevProps) {
+    const category = this.props.match.params.name;
+    if (prevProps.match.params.name !== category) {
+      this.getPosts(category);
+    }
+  }
 
-    const filteredPosts = posts.filter(
-      p => (categoryName ? p.category === categoryName : p)
-    );
+  getPosts = category => {
+    category ? this.props.getPostsByCategory(category) : this.props.getPosts();
+  };
+
+  render() {
+    const { categories, posts } = this.props;
 
     return (
       <div>
         <CategoryMenu categories={categories} />
 
-        {filteredPosts.length ? (
-          <PostsList posts={filteredPosts} />
+        {posts.length ? (
+          <PostsList posts={posts} />
         ) : (
           <p className="alert alert-warning">No Posts</p>
         )}
@@ -42,6 +48,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getCategories: () => dispatch(getCategories()),
     getPosts: () => dispatch(getPosts()),
+    getPostsByCategory: category => dispatch(getPostsByCategory(category)),
   };
 };
 

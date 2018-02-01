@@ -15,7 +15,7 @@ const Header = () => (
         </Link>
       </div>
       <div className="col-4 d-flex justify-content-end align-items-center">
-        <a className="text-muted" href="#">
+        {/*<a className="text-muted" href="#">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -31,7 +31,10 @@ const Header = () => (
             <circle cx="10.5" cy="10.5" r="7.5" />
             <line x1="21" y1="21" x2="15.8" y2="15.8" />
           </svg>
-        </a>
+        </a>*/}
+        <Link className="btn btn-outline-info" to="/posts/new">
+          + New Post
+        </Link>
       </div>
     </div>
   </header>

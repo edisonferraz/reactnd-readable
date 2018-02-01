@@ -6,8 +6,12 @@ const fetchPostsSuccess = posts => ({
   posts,
 });
 
-export const getPosts = dispatch => {
-  return dispatch => {
-    Api.getPosts().then(posts => dispatch(fetchPostsSuccess(posts)));
-  };
+export const getPosts = dispatch => dispatch => {
+  Api.getPosts().then(posts => dispatch(fetchPostsSuccess(posts)));
+};
+
+export const getPostsByCategory = (category, dispatch) => dispatch => {
+  Api.getPostsByCategory(category).then(posts =>
+    dispatch(fetchPostsSuccess(posts))
+  );
 };
