@@ -23,6 +23,8 @@ const CategoryMenu = ({ categories, setSorting }) => (
             <option value="">order posts by:</option>
             <option value="byScoreHighest">highest score</option>
             <option value="byScoreLowest">lowest score</option>
+            <option value="byDateNewest">newest</option>
+            <option value="byDateOldest">oldest</option>
           </select>
         </li>
       </ul>
