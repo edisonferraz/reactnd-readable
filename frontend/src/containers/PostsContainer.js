@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCategories, getPosts, getPostsByCategory } from 'actions';
+import { getCategories, getPosts, getPostsByCategory, orderBy } from 'actions';
 import CategoryMenu from 'components/CategoryMenu';
 import PostsList from 'components/PostsList';
+
+import { orderPosts } from 'utils/filters';
 
 class PostsContainer extends Component {
   componentDidMount() {
@@ -22,12 +24,16 @@ class PostsContainer extends Component {
     category ? this.props.getPostsByCategory(category) : this.props.getPosts();
   };
 
+  setSorting = filter => {
+    this.props.orderBy(filter);
+  };
+
   render() {
     const { categories, posts } = this.props;
 
     return (
       <div>
-        <CategoryMenu categories={categories} />
+        <CategoryMenu categories={categories} setSorting={this.setSorting} />
 
         {posts.length ? (
           <PostsList posts={posts} />
@@ -39,16 +45,19 @@ class PostsContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  categories: state.categories,
-  posts: state.posts,
-});
+const mapStateToProps = state => {
+  return {
+    categories: state.categories,
+    posts: orderPosts(state.posts, state.orderBy),
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     getCategories: () => dispatch(getCategories()),
     getPosts: () => dispatch(getPosts()),
     getPostsByCategory: category => dispatch(getPostsByCategory(category)),
+    orderBy: filter => dispatch(orderBy(filter)),
   };
 };
 

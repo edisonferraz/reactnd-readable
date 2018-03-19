@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const CategoryMenu = ({ categories }) => (
+const CategoryMenu = ({ categories, setSorting }) => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light rounded mb-3">
     <div className="collapse navbar-collapse" id="navbarsExample09">
       <ul className="navbar-nav mr-auto">
@@ -16,10 +16,13 @@ const CategoryMenu = ({ categories }) => (
       </ul>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <select className="form-control">
+          <select
+            className="form-control"
+            onChange={e => setSorting(e.target.value)}
+          >
             <option value="">order posts by:</option>
-            <option value="">highest vote score</option>
-            <option vaalue="">lowest vote score</option>
+            <option value="byScoreHighest">highest score</option>
+            <option value="byScoreLowest">lowest score</option>
           </select>
         </li>
       </ul>
