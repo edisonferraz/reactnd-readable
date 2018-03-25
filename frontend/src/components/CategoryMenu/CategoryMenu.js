@@ -7,13 +7,14 @@ const CategoryMenu = ({ categories, setSorting }) => (
     <div className="collapse navbar-collapse" id="navbarsExample09">
       <ul className="navbar-nav mr-auto">
         {categories.map(category => (
-          <li className="nav-item">
+          <li className="nav-item" key={category.name}>
             <Link className="nav-link" to={`/categories/${category.name}`}>
               {category.name}
             </Link>
           </li>
         ))}
       </ul>
+
       <ul className="navbar-nav">
         <li className="nav-item">
           <select
@@ -28,12 +29,17 @@ const CategoryMenu = ({ categories, setSorting }) => (
           </select>
         </li>
       </ul>
+
+      <Link className="btn btn-primary ml-2" to="/posts/new">
+        + New Post
+      </Link>
     </div>
   </nav>
 );
 
 CategoryMenu.propTypes = {
-  categories: PropTypes.array.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setSorting: PropTypes.func.isRequired,
 };
 
 export default CategoryMenu;

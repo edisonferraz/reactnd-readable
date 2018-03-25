@@ -10,22 +10,19 @@ const sortDateOldest = posts => [
 
 const sortDateNewest = posts => sortDateOldest(posts).reverse();
 
-export const orderPosts = (posts, filter) => {
+const orderPosts = (posts, filter) => {
   switch (filter) {
     case 'byScoreLowest':
       return sortVoteScoreAsc(posts);
-      break;
     case 'byScoreHighest':
       return sortVoteScoreDesc(posts);
-      break;
     case 'byDateOldest':
       return sortDateOldest(posts);
-      break;
     case 'byDateNewest':
       return sortDateNewest(posts);
-      break;
     default:
       return sortVoteScoreDesc(posts);
-      break;
   }
 };
+
+export { orderPosts };

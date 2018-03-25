@@ -32,9 +32,6 @@ const Header = () => (
             <line x1="21" y1="21" x2="15.8" y2="15.8" />
           </svg>
         </a>*/}
-        <Link className="btn btn-outline-info" to="/posts/new">
-          + New Post
-        </Link>
       </div>
     </div>
   </header>

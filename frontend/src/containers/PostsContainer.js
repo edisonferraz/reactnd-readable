@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import { getCategories, getPosts, getPostsByCategory, orderBy } from 'actions';
@@ -21,7 +23,11 @@ class PostsContainer extends Component {
   }
 
   getPosts = category => {
-    category ? this.props.getPostsByCategory(category) : this.props.getPosts();
+    if (category) {
+      this.props.getPostsByCategory(category);
+    } else {
+      this.props.getPosts();
+    }
   };
 
   setSorting = filter => {
@@ -45,20 +51,30 @@ class PostsContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    categories: state.categories,
-    posts: orderPosts(state.posts, state.orderBy),
-  };
+PostsContainer.defaultProps = {
+  match: {},
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getCategories: () => dispatch(getCategories()),
-    getPosts: () => dispatch(getPosts()),
-    getPostsByCategory: category => dispatch(getPostsByCategory(category)),
-    orderBy: filter => dispatch(orderBy(filter)),
-  };
+PostsContainer.propTypes = {
+  match: PropTypes.objectOf(PropTypes.any),
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getCategories: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
+  getPostsByCategory: PropTypes.func.isRequired,
+  orderBy: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  categories: state.categories,
+  posts: orderPosts(state.posts, state.orderBy),
+});
+
+const mapDispatchToProps = dispatch => ({
+  getCategories: () => dispatch(getCategories()),
+  getPosts: () => dispatch(getPosts()),
+  getPostsByCategory: category => dispatch(getPostsByCategory(category)),
+  orderBy: filter => dispatch(orderBy(filter)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);
