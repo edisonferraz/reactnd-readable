@@ -11,3 +11,17 @@ export const getPostsByCategory = category => {
     res => res.json()
   );
 };
+
+export const createPost = post => {
+  const timestamp = Date.now();
+
+  fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({
+      ...post,
+      id: timestamp,
+      timestamp,
+    }),
+  }).then(res => res.json());
+};

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PostForm = ({ fields, onChange, sendForm }) => (
+import { Link } from 'react-router-dom';
+
+const PostForm = ({ fields, categories, onChange, sendForm }) => (
   <div className="row justify-content-md-center">
     <p>{JSON.stringify(fields)}</p>
     <br />
@@ -22,6 +24,7 @@ const PostForm = ({ fields, onChange, sendForm }) => (
           className="form-control"
           name="title"
           onChange={onChange}
+          required
         />
       </div>
 
@@ -32,6 +35,7 @@ const PostForm = ({ fields, onChange, sendForm }) => (
           className="form-control"
           name="body"
           onChange={onChange}
+          required
         />
       </div>
 
@@ -42,17 +46,32 @@ const PostForm = ({ fields, onChange, sendForm }) => (
           className="form-control"
           name="author"
           onChange={onChange}
+          required
         />
       </div>
 
       <div className="form-group">
         <label htmlFor="">Category</label>
-        <input type="text" className="form-control" />
+        <select
+          className="form-control"
+          onChange={onChange}
+          name="category"
+          required
+        >
+          <option value="">choose one</option>
+          {categories.map(category => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="row justify-content-between">
         <div className="col col-lg-3">
-          <button className="btn btn-danger btn-block">Cancel</button>
+          <Link className="btn btn-danger btn-block" to="/">
+            Cancel
+          </Link>
         </div>
         <div className="col col-lg-5">
           <button type="submit" className="btn btn-primary btn-block">
@@ -63,6 +82,10 @@ const PostForm = ({ fields, onChange, sendForm }) => (
     </form>
   </div>
 );
+
+PostForm.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 PostForm.propTypes = {
   fields: PropTypes.shape({

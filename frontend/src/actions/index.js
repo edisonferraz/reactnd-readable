@@ -1,5 +1,5 @@
 import { getCategories } from './categories';
-import { getPosts, getPostsByCategory } from './posts';
+import { getPosts, getPostsByCategory, createPost } from './posts';
 import { orderBy } from './orderBy';
 
-export { getCategories, getPosts, getPostsByCategory, orderBy };
+export { getCategories, getPosts, getPostsByCategory, orderBy, createPost };
