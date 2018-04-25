@@ -1,4 +1,10 @@
 import { getCategories } from './categories';
-import { getPosts, getPostsByCategory, createPost } from './posts';
+import { getPosts, getPostsByCategory, createPost, editPost } from './posts';
 
-export default { getCategories, getPosts, getPostsByCategory, createPost };
+export default {
+  getCategories,
+  getPosts,
+  getPostsByCategory,
+  createPost,
+  editPost,
+};

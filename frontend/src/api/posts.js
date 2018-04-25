@@ -20,7 +20,20 @@ export const createPost = post => {
     headers: HEADERS,
     body: JSON.stringify({
       ...post,
-      id: timestamp,
+      id: timestamp.toString(),
+      timestamp,
+    }),
+  }).then(res => res.json());
+};
+
+export const editPost = post => {
+  const timestamp = Date.now();
+
+  fetch(`${BASE_URL}/posts/${post.id}`, {
+    method: 'PUT',
+    headers: HEADERS,
+    body: JSON.stringify({
+      ...post,
       timestamp,
     }),
   }).then(res => res.json());

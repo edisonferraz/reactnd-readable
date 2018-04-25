@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 
 const PostForm = ({ fields, categories, onChange, sendForm }) => (
   <div className="row justify-content-md-center">
-    <p>{JSON.stringify(fields)}</p>
-    <br />
-
     <form
       onSubmit={sendForm}
       className="col col-lg-6 mt-5 jumbotron"
@@ -24,6 +21,7 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
           className="form-control"
           name="title"
           onChange={onChange}
+          value={fields.title}
           required
         />
       </div>
@@ -35,6 +33,7 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
           className="form-control"
           name="body"
           onChange={onChange}
+          value={fields.body}
           required
         />
       </div>
@@ -46,6 +45,7 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
           className="form-control"
           name="author"
           onChange={onChange}
+          value={fields.author}
           required
         />
       </div>
@@ -54,8 +54,9 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
         <label htmlFor="">Category</label>
         <select
           className="form-control"
-          onChange={onChange}
           name="category"
+          onChange={onChange}
+          value={fields.category}
           required
         >
           <option value="">choose one</option>
@@ -75,7 +76,7 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
         </div>
         <div className="col col-lg-5">
           <button type="submit" className="btn btn-primary btn-block">
-            Create Post
+            {fields.id ? 'Edit Post' : 'Create Post'}
           </button>
         </div>
       </div>
