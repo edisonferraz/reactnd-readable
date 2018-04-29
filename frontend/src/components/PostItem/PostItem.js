@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Badge from 'components/Badge';
 import { convertTimestampToDate } from 'utils/date';
 
-const PostItem = ({ post, index }) => (
+const PostItem = ({ post, index, deletePostModal }) => (
   <div>
     <strong className="d-inline-block mb-2 text-primary">
       <Badge label="author" value={post.author} />
@@ -44,9 +44,12 @@ const PostItem = ({ post, index }) => (
       >
         <span className="oi oi-pencil" />
       </Link>
-      <Link className="btn btn-light btn-sm ml-2" to="/" title="remove">
+      <button
+        className="btn btn-light btn-sm ml-2"
+        onClick={() => deletePostModal(post)}
+      >
         <span className="oi oi-trash" />
-      </Link>
+      </button>
     </p>
   </div>
 );
@@ -58,6 +61,7 @@ PostItem.defaultProps = {
 PostItem.propTypes = {
   post: PropTypes.objectOf(PropTypes.any).isRequired,
   index: PropTypes.number,
+  deletePostModal: PropTypes.func.isRequired,
 };
 
 export default PostItem;

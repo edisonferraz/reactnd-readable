@@ -15,7 +15,7 @@ export const getPostsByCategory = category => {
 export const createPost = post => {
   const timestamp = Date.now();
 
-  fetch(`${BASE_URL}/posts`, {
+  return fetch(`${BASE_URL}/posts`, {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify({
@@ -29,12 +29,19 @@ export const createPost = post => {
 export const editPost = post => {
   const timestamp = Date.now();
 
-  fetch(`${BASE_URL}/posts/${post.id}`, {
+  return fetch(`${BASE_URL}/posts/${post.id}`, {
     method: 'PUT',
     headers: HEADERS,
     body: JSON.stringify({
       ...post,
       timestamp,
     }),
+  }).then(res => res.json());
+};
+
+export const deletePost = postId => {
+  return fetch(`${BASE_URL}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: HEADERS,
   }).then(res => res.json());
 };

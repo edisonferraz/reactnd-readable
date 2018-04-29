@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PostItem from 'components/PostItem';
 
-const PostsList = ({ posts }) => (
+const PostsList = ({ posts, deletePostModal }) => (
   <div className="row mb-2">
     {posts.map(
       (post, index) =>
@@ -10,7 +10,11 @@ const PostsList = ({ posts }) => (
           <div key={post.id} className="col-md-12">
             <div className="jumbotron p-3 p-md-5 text-white rounded bg-dark">
               <div className="col-md-6 px-0">
-                <PostItem post={post} index={index} />
+                <PostItem
+                  post={post}
+                  index={index}
+                  deletePostModal={deletePostModal}
+                />
               </div>
             </div>
           </div>
@@ -18,7 +22,7 @@ const PostsList = ({ posts }) => (
           <div key={post.id} className="col-md-6">
             <div className="card flex-md-row mb-4 box-shadow h-md-250_">
               <div className="card-body d-flex flex-column align-items-start">
-                <PostItem post={post} />
+                <PostItem post={post} deletePostModal={deletePostModal} />
               </div>
             </div>
           </div>
@@ -29,6 +33,7 @@ const PostsList = ({ posts }) => (
 
 PostsList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deletePostModal: PropTypes.func.isRequired,
 };
 
 export default PostsList;

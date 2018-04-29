@@ -1,5 +1,11 @@
 import { getCategories } from './categories';
-import { getPosts, getPostsByCategory, createPost, editPost } from './posts';
+import {
+  getPosts,
+  getPostsByCategory,
+  createPost,
+  editPost,
+  deletePost,
+} from './posts';
 import { orderBy } from './orderBy';
 
 export {
@@ -9,4 +15,5 @@ export {
   orderBy,
   createPost,
   editPost,
+  deletePost,
 };

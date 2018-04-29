@@ -6,6 +6,11 @@ const CategoryMenu = ({ categories, setSorting }) => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light rounded mb-3">
     <div className="collapse navbar-collapse" id="navbarsExample09">
       <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/">
+            all
+          </Link>
+        </li>
         {categories.map(category => (
           <li className="nav-item" key={category.name}>
             <Link className="nav-link" to={`/categories/${category.name}`}>

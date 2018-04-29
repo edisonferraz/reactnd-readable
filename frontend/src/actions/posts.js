@@ -3,6 +3,7 @@ import {
   FETCH_POSTS_SUCCESS,
   CREATE_POST_SUCCESS,
   EDIT_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
 } from './constants';
 
 const fetchPostsSuccess = posts => ({
@@ -11,7 +12,9 @@ const fetchPostsSuccess = posts => ({
 });
 
 export const getPosts = dispatch => dispatch => {
-  Api.getPosts().then(posts => dispatch(fetchPostsSuccess(posts)));
+  Api.getPosts().then(posts =>
+    dispatch(fetchPostsSuccess(posts.filter(p => p.deleted === false)))
+  );
 };
 
 export const getPostsByCategory = (category, dispatch) => dispatch => {
@@ -27,8 +30,8 @@ const createPostSuccess = post => ({
 
 export const createPost = data => dispatch =>
   new Promise(resolve => {
-    resolve();
     Api.createPost(data).then(post => dispatch(createPostSuccess(post)));
+    resolve();
   });
 
 const editPostSuccess = post => ({
@@ -38,6 +41,17 @@ const editPostSuccess = post => ({
 
 export const editPost = data => dispatch =>
   new Promise(resolve => {
-    resolve();
     Api.editPost(data).then(post => dispatch(editPostSuccess(post)));
+    resolve();
+  });
+
+const deletePostSuccess = post => ({
+  type: DELETE_POST_SUCCESS,
+  post,
+});
+
+export const deletePost = data => dispatch =>
+  new Promise(resolve => {
+    Api.deletePost(data).then(post => dispatch(deletePostSuccess(post)));
+    resolve();
   });
