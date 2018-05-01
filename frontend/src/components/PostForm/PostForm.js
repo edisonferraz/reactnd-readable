@@ -10,7 +10,9 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
       className="col col-lg-6 mt-5 jumbotron"
       style={{ paddingTop: '30px', paddingBottom: '30px' }}
     >
-      <h1 style={{ fontSize: '36px' }}>New Post</h1>
+      <h1 style={{ fontSize: '36px' }}>
+        {fields.id ? 'Edit Post' : 'New Post'}
+      </h1>
       <hr />
 
       <div className="form-group">
@@ -84,11 +86,10 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
   </div>
 );
 
-PostForm.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+PostForm.defaultProps = {};
 
 PostForm.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   fields: PropTypes.shape({
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,

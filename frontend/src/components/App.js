@@ -12,7 +12,7 @@ const App = () => (
       <Route path="/categories/:name" exact component={PostsPage} />
       <Route path="/posts/new" exact component={PostFormPage} />
       <Route path="/posts/edit/:id" exact component={PostFormPage} />
-      <Route path="/posts/:id" exact component={PostDetailPage} />
+      <Route path="/posts/detail/:id" exact component={PostDetailPage} />
       <Route component={PostsPage} />
     </Switch>
   </div>

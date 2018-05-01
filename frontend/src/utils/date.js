@@ -8,7 +8,9 @@ const convertTimestampToDate = timestamp => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
-  const dateFormated = `${month}/${day}/${year}`;
+  const dateFormated = `
+    ${month < 10 ? '0' : ''}${month}/${day < 10 ? '0' : ''}${day}/${year}
+  `;
   const hoursFormated = `
     ${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}
   `;

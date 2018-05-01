@@ -1,6 +1,7 @@
 import { getCategories } from './categories';
 import {
   getPosts,
+  getPostById,
   getPostsByCategory,
   createPost,
   editPost,
@@ -10,6 +11,7 @@ import {
 export default {
   getCategories,
   getPosts,
+  getPostById,
   getPostsByCategory,
   createPost,
   editPost,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getCategories, createPost, getPosts, editPost } from 'actions';
+import { getCategories, createPost, getPostById, editPost } from 'actions';
 
 import PostForm from 'components/PostForm';
 
@@ -19,23 +19,22 @@ class PostFormContainer extends Component {
         category: '',
       },
     };
+
+    this.postId = this.props.match.params.id;
   }
 
   componentDidMount() {
     this.props.getCategories();
-    this.props.getPosts();
+    if (this.postId) {
+      this.props.getPostById(this.postId);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    const postId = nextProps.match.params.id;
-
-    if (postId) {
-      const post = nextProps.posts.filter(p => p.id === postId)[0];
-
+    if (nextProps.match.params.id) {
       this.setState({
         fields: {
-          ...this.state.fields,
-          ...post,
+          ...nextProps.post,
         },
       });
     }
@@ -53,10 +52,9 @@ class PostFormContainer extends Component {
   sendForm = e => {
     e.preventDefault();
 
-    const editForm = this.state.fields.id;
     const { fields } = this.state;
 
-    if (editForm) {
+    if (this.postId) {
       this.props.editPost(fields).then(() => {
         this.props.history.push('/');
       });
@@ -86,19 +84,19 @@ PostFormContainer.propTypes = {
   getCategories: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
-  getPosts: PropTypes.func.isRequired,
+  getPostById: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   categories: state.categories,
-  posts: state.posts,
+  post: state.posts,
 });
 
 const mapDispatchToProps = dispatch => ({
   getCategories: () => dispatch(getCategories()),
   createPost: post => dispatch(createPost(post)),
   editPost: post => dispatch(editPost(post)),
-  getPosts: () => dispatch(getPosts()),
+  getPostById: postId => dispatch(getPostById(postId)),
 });
 
 export default withRouter(

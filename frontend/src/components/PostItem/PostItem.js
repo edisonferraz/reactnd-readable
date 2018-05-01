@@ -1,67 +1,114 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Badge from 'components/Badge';
 import { convertTimestampToDate } from 'utils/date';
+import Modal from 'components/Modal';
 
-const PostItem = ({ post, index, deletePostModal }) => (
-  <div>
-    <strong className="d-inline-block mb-2 text-primary">
-      <Badge label="author" value={post.author} />
-      <Badge label="category" value={post.category} />
-      <Badge label="votes" value={post.voteScore} />
-    </strong>
+class PostItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      post: null,
+      showModal: false,
+    };
+  }
 
-    {index === 0 ? (
-      <h1 className="display-4 font-italic">
-        <a className="text-white" href="/">
-          {post.title}
-        </a>
-      </h1>
-    ) : (
-      <h3>
-        <a className="text-dark" href="/">
-          {post.title}
-        </a>
-      </h3>
-    )}
+  deletePostModal = post => {
+    this.setState({
+      post,
+      showModal: true,
+    });
+  };
 
-    <div className="mb-1 text-muted">
-      {convertTimestampToDate(post.timestamp)}
-    </div>
+  render() {
+    const { post, index, detail, deletePost } = this.props;
 
-    <p className="lead my-3">{post.body}</p>
+    return (
+      <div>
+        <strong className="d-inline-block mb-2 text-primary">
+          <Badge label="author" value={post.author} />
+          <Badge label="category" value={post.category} />
+          <Badge label="votes" value={post.voteScore} />
+        </strong>
+        {index === 0 ? (
+          <h1 className="display-4 font-italic">
+            <Link className="text-white" to={`/posts/detail/${post.id}`}>
+              {post.title}
+            </Link>
+          </h1>
+        ) : (
+          <h3>
+            {detail ? (
+              post.title
+            ) : (
+              <Link className="text-dark" to={`/posts/detail/${post.id}`}>
+                {post.title}
+              </Link>
+            )}
+          </h3>
+        )}
+        <div className="mb-1 text-muted">
+          {convertTimestampToDate(post.timestamp)}
+        </div>
+        <p className="lead my-3">{post.body}</p>
+        <p>
+          {detail ? null : (
+            <Link
+              className="btn btn-light btn-sm mr-2"
+              to={`/posts/detail/${post.id}`}
+              title="Continue reading"
+            >
+              Continue reading
+            </Link>
+          )}
 
-    <p>
-      <a href="/" className="btn btn-light btn-sm" title="Continue reading">
-        Continue reading
-      </a>
-
-      <Link
-        className="btn btn-light btn-sm ml-2"
-        to={`/posts/edit/${post.id}`}
-        title="edit"
-      >
-        <span className="oi oi-pencil" />
-      </Link>
-      <button
-        className="btn btn-light btn-sm ml-2"
-        onClick={() => deletePostModal(post)}
-      >
-        <span className="oi oi-trash" />
-      </button>
-    </p>
-  </div>
-);
+          <Link
+            className="btn btn-light btn-sm mr-2"
+            to={`/posts/edit/${post.id}`}
+            title="edit"
+          >
+            <span className="oi oi-pencil" />
+          </Link>
+          <button
+            className="btn btn-light btn-sm mr-2"
+            onClick={() => this.deletePostModal(post)}
+          >
+            <span className="oi oi-trash" />
+          </button>
+        </p>
+        {this.state.showModal ? (
+          <Modal
+            title={this.state.post.title}
+            button={{ type: 'danger', label: 'Yes, Delete' }}
+            confirm={() => {
+              deletePost(this.state.post.id).then(() =>
+                this.props.history.push('/')
+              );
+              this.setState({ showModal: false });
+            }}
+            cancel={() => this.setState({ showModal: false })}
+          >
+            <p className="alert alert-warning">
+              Are you sure you want to delete this post?
+            </p>
+          </Modal>
+        ) : null}
+      </div>
+    );
+  }
+}
 
 PostItem.defaultProps = {
-  index: null,
+  index: 1,
+  detail: false,
 };
 
 PostItem.propTypes = {
-  post: PropTypes.objectOf(PropTypes.any).isRequired,
+  post: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
   index: PropTypes.number,
-  deletePostModal: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  detail: PropTypes.bool,
 };
 
-export default PostItem;
+export default withRouter(PostItem);

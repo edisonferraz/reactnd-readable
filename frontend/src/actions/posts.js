@@ -1,6 +1,7 @@
 import Api from 'api';
 import {
   FETCH_POSTS_SUCCESS,
+  FETCH_POST_SUCCESS,
   CREATE_POST_SUCCESS,
   EDIT_POST_SUCCESS,
   DELETE_POST_SUCCESS,
@@ -15,6 +16,15 @@ export const getPosts = dispatch => dispatch => {
   Api.getPosts().then(posts =>
     dispatch(fetchPostsSuccess(posts.filter(p => p.deleted === false)))
   );
+};
+
+const fetchPostSuccess = post => ({
+  type: FETCH_POST_SUCCESS,
+  post,
+});
+
+export const getPostById = (postId, dispatch) => dispatch => {
+  Api.getPostById(postId).then(post => dispatch(fetchPostSuccess(post)));
 };
 
 export const getPostsByCategory = (category, dispatch) => dispatch => {

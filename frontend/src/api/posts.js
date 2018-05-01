@@ -6,6 +6,12 @@ export const getPosts = () => {
   );
 };
 
+export const getPostById = postId => {
+  return fetch(`${BASE_URL}/posts/${postId}`, { headers: HEADERS }).then(res =>
+    res.json()
+  );
+};
+
 export const getPostsByCategory = category => {
   return fetch(`${BASE_URL}/${category}/posts`, { headers: HEADERS }).then(
     res => res.json()

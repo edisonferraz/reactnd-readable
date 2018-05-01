@@ -9,12 +9,13 @@ const Badge = ({ label, value }) => (
 );
 
 Badge.defaultProps = {
-  label: '',
+  label: 'label',
+  value: 0,
 };
 
 Badge.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.any, PropTypes.number]),
 };
 
 export default Badge;
