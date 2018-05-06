@@ -8,6 +8,13 @@ import {
   deletePost,
 } from './posts';
 import { orderBy } from './orderBy';
+import {
+  getComments,
+  addComment,
+  updateComment,
+  deleteComment,
+  voteComment,
+} from './comments';
 
 export {
   getCategories,
@@ -18,4 +25,9 @@ export {
   createPost,
   editPost,
   deletePost,
+  getComments,
+  addComment,
+  updateComment,
+  deleteComment,
+  voteComment,
 };

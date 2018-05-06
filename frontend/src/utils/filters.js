@@ -1,8 +1,8 @@
-const sortVoteScoreAsc = posts => [
-  ...posts.sort((a, b) => a.voteScore - b.voteScore),
+const sortVoteScoreAsc = array => [
+  ...array.sort((a, b) => a.voteScore - b.voteScore),
 ];
 
-const sortVoteScoreDesc = posts => sortVoteScoreAsc(posts).reverse();
+const sortVoteScoreDesc = array => sortVoteScoreAsc(array).reverse();
 
 const sortDateOldest = posts => [
   ...posts.sort((a, b) => a.timestamp - b.timestamp),
@@ -25,4 +25,11 @@ const orderPosts = (posts, filter) => {
   }
 };
 
-export { orderPosts };
+const orderComments = (comments, filter) => {
+  switch (filter) {
+    default:
+      return sortVoteScoreDesc(comments);
+  }
+};
+
+export { orderPosts, orderComments };

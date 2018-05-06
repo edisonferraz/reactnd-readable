@@ -12,7 +12,7 @@ const fetchPostsSuccess = posts => ({
   posts,
 });
 
-export const getPosts = dispatch => dispatch => {
+export const getPosts = () => dispatch => {
   Api.getPosts().then(posts =>
     dispatch(fetchPostsSuccess(posts.filter(p => p.deleted === false)))
   );
@@ -23,11 +23,11 @@ const fetchPostSuccess = post => ({
   post,
 });
 
-export const getPostById = (postId, dispatch) => dispatch => {
+export const getPostById = postId => dispatch => {
   Api.getPostById(postId).then(post => dispatch(fetchPostSuccess(post)));
 };
 
-export const getPostsByCategory = (category, dispatch) => dispatch => {
+export const getPostsByCategory = category => dispatch => {
   Api.getPostsByCategory(category).then(posts =>
     dispatch(fetchPostsSuccess(posts))
   );

@@ -1,4 +1,5 @@
 import { getCategories } from './categories';
+
 import {
   getPosts,
   getPostById,
@@ -8,6 +9,14 @@ import {
   deletePost,
 } from './posts';
 
+import {
+  getComments,
+  addComment,
+  deleteComment,
+  updateComment,
+  voteComment,
+} from './comments';
+
 export default {
   getCategories,
   getPosts,
@@ -16,4 +25,9 @@ export default {
   createPost,
   editPost,
   deletePost,
+  getComments,
+  addComment,
+  deleteComment,
+  updateComment,
+  voteComment,
 };

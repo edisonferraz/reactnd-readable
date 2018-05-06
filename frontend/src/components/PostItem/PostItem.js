@@ -22,7 +22,7 @@ class PostItem extends Component {
   };
 
   render() {
-    const { post, index, detail, deletePost } = this.props;
+    const { post, index, detail, deletePost, showCommentForm } = this.props;
 
     return (
       <div>
@@ -76,7 +76,17 @@ class PostItem extends Component {
           >
             <span className="oi oi-trash" />
           </button>
+
+          {detail && (
+            <button
+              className="btn btn-light btn-sm mr-2"
+              onClick={showCommentForm}
+            >
+              <span className="oi oi-plus" /> Add Comment
+            </button>
+          )}
         </p>
+
         {this.state.showModal ? (
           <Modal
             title={this.state.post.title}
@@ -102,6 +112,7 @@ class PostItem extends Component {
 PostItem.defaultProps = {
   index: 1,
   detail: false,
+  showCommentForm: null,
 };
 
 PostItem.propTypes = {
@@ -109,6 +120,7 @@ PostItem.propTypes = {
   index: PropTypes.number,
   deletePost: PropTypes.func.isRequired,
   detail: PropTypes.bool,
+  showCommentForm: PropTypes.func,
 };
 
 export default withRouter(PostItem);
