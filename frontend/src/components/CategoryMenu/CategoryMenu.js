@@ -13,7 +13,7 @@ const CategoryMenu = ({ categories, setSorting }) => (
         </li>
         {categories.map(category => (
           <li className="nav-item" key={category.name}>
-            <Link className="nav-link" to={`/categories/${category.name}`}>
+            <Link className="nav-link" to={`/${category.name}`}>
               {category.name}
             </Link>
           </li>

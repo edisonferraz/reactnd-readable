@@ -22,7 +22,14 @@ class PostItem extends Component {
   };
 
   render() {
-    const { post, index, detail, deletePost, showCommentForm } = this.props;
+    const {
+      post,
+      index,
+      detail,
+      deletePost,
+      showCommentForm,
+      votePost,
+    } = this.props;
 
     return (
       <div>
@@ -30,10 +37,11 @@ class PostItem extends Component {
           <Badge label="author" value={post.author} />
           <Badge label="category" value={post.category} />
           <Badge label="votes" value={post.voteScore} />
+          <Badge label="comments" value={post.commentCount} />
         </strong>
         {index === 0 ? (
           <h1 className="display-4 font-italic">
-            <Link className="text-white" to={`/posts/detail/${post.id}`}>
+            <Link className="text-white" to={`/${post.category}/${post.id}`}>
               {post.title}
             </Link>
           </h1>
@@ -42,7 +50,7 @@ class PostItem extends Component {
             {detail ? (
               post.title
             ) : (
-              <Link className="text-dark" to={`/posts/detail/${post.id}`}>
+              <Link className="text-dark" to={`/${post.category}/${post.id}`}>
                 {post.title}
               </Link>
             )}
@@ -77,6 +85,19 @@ class PostItem extends Component {
             <span className="oi oi-trash" />
           </button>
 
+          <button
+            className="btn btn-light btn-sm mr-2"
+            onClick={() => votePost(post.id, 'upVote')}
+          >
+            <span className="oi oi-thumb-up" />
+          </button>
+
+          <button
+            className="btn btn-light btn-sm mr-2"
+            onClick={() => votePost(post.id, 'downVote')}
+          >
+            <span className="oi oi-thumb-down" />
+          </button>
           {detail && (
             <button
               className="btn btn-light btn-sm mr-2"
@@ -121,6 +142,7 @@ PostItem.propTypes = {
   deletePost: PropTypes.func.isRequired,
   detail: PropTypes.bool,
   showCommentForm: PropTypes.func,
+  votePost: PropTypes.func.isRequired,
 };
 
 export default withRouter(PostItem);

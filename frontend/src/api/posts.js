@@ -51,3 +51,11 @@ export const deletePost = postId => {
     headers: HEADERS,
   }).then(res => res.json());
 };
+
+export const votePost = (postId, vote) => {
+  return fetch(`${BASE_URL}/posts/${postId}`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({ option: vote }),
+  }).then(res => res.json());
+};

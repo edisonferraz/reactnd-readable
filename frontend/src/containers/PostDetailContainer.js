@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   getPostById,
   deletePost,
+  votePost,
   getComments,
   addComment,
   updateComment,
@@ -77,6 +78,7 @@ class PostDetailContainer extends Component {
 
       this.props.addComment(comment).then(() => {
         this.clearState();
+        this.props.getPostById(this.postId);
       });
     }
   };
@@ -96,17 +98,29 @@ class PostDetailContainer extends Component {
         author: '',
       },
       commentUpdate: false,
+      showCommentForm: false,
+    });
+  };
+
+  deleteComment = commentId => {
+    this.props.deleteComment(commentId).then(() => {
+      this.props.getPostById(this.postId);
     });
   };
 
   render() {
+    if (this.props.post.length === 0) {
+      this.props.history.push('/404');
+    }
+
     return (
       <div className="mt-5">
         <div className="my-3 p-3 bg-white rounded box-shadow">
           <PostItem
-            post={this.props.post}
+            post={{ ...this.props.post[0] }}
             deletePost={this.props.deletePost}
             showCommentForm={this.showCommentForm}
+            votePost={this.props.votePost}
             detail
           />
         </div>
@@ -123,7 +137,7 @@ class PostDetailContainer extends Component {
         )}
         <CommentsList
           comments={this.props.comments}
-          deleteComment={this.props.deleteComment}
+          deleteComment={this.deleteComment}
           editComment={this.editComment}
           voteComment={this.props.voteComment}
         />
@@ -140,6 +154,7 @@ PostDetailContainer.propTypes = {
   post: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
   getPostById: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
   comments: PropTypes.arrayOf(PropTypes.any),
   getComments: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
@@ -156,6 +171,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getPostById: postId => dispatch(getPostById(postId)),
   deletePost: postId => dispatch(deletePost(postId)),
+  votePost: (postId, vote) => dispatch(votePost(postId, vote)),
   getComments: postId => dispatch(getComments(postId)),
   addComment: comment => dispatch(addComment(comment)),
   updateComment: commentId => dispatch(updateComment(commentId)),

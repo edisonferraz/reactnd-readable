@@ -86,8 +86,6 @@ const PostForm = ({ fields, categories, onChange, sendForm }) => (
   </div>
 );
 
-PostForm.defaultProps = {};
-
 PostForm.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   fields: PropTypes.shape({

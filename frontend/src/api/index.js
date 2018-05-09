@@ -7,6 +7,7 @@ import {
   createPost,
   editPost,
   deletePost,
+  votePost,
 } from './posts';
 
 import {
@@ -30,4 +31,5 @@ export default {
   deleteComment,
   updateComment,
   voteComment,
+  votePost,
 };

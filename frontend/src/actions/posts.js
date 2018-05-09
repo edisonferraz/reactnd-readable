@@ -5,6 +5,7 @@ import {
   CREATE_POST_SUCCESS,
   EDIT_POST_SUCCESS,
   DELETE_POST_SUCCESS,
+  VOTE_POST_SUCCESS,
 } from './constants';
 
 const fetchPostsSuccess = posts => ({
@@ -39,10 +40,7 @@ const createPostSuccess = post => ({
 });
 
 export const createPost = data => dispatch =>
-  new Promise(resolve => {
-    Api.createPost(data).then(post => dispatch(createPostSuccess(post)));
-    resolve();
-  });
+  Api.createPost(data).then(post => dispatch(createPostSuccess(post)));
 
 const editPostSuccess = post => ({
   type: EDIT_POST_SUCCESS,
@@ -50,10 +48,7 @@ const editPostSuccess = post => ({
 });
 
 export const editPost = data => dispatch =>
-  new Promise(resolve => {
-    Api.editPost(data).then(post => dispatch(editPostSuccess(post)));
-    resolve();
-  });
+  Api.editPost(data).then(post => dispatch(editPostSuccess(post)));
 
 const deletePostSuccess = post => ({
   type: DELETE_POST_SUCCESS,
@@ -61,7 +56,12 @@ const deletePostSuccess = post => ({
 });
 
 export const deletePost = data => dispatch =>
-  new Promise(resolve => {
-    Api.deletePost(data).then(post => dispatch(deletePostSuccess(post)));
-    resolve();
-  });
+  Api.deletePost(data).then(post => dispatch(deletePostSuccess(post)));
+
+const votePostSuccess = post => ({
+  type: VOTE_POST_SUCCESS,
+  post,
+});
+
+export const votePost = (postId, vote) => dispatch =>
+  Api.votePost(postId, vote).then(post => dispatch(votePostSuccess(post)));

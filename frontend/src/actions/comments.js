@@ -23,26 +23,18 @@ const addCommentSuccess = comment => ({
   comment,
 });
 
-export const addComment = data => dispatch => {
-  return new Promise(resolve => {
-    Api.addComment(data).then(comment => dispatch(addCommentSuccess(comment)));
-    resolve();
-  });
-};
+export const addComment = data => dispatch =>
+  Api.addComment(data).then(comment => dispatch(addCommentSuccess(comment)));
 
 const updateCommentSuccess = comment => ({
   type: UPDATE_COMMENT_SUCCESS,
   comment,
 });
 
-export const updateComment = data => dispatch => {
-  return new Promise(resolve => {
-    Api.updateComment(data).then(comment =>
-      dispatch(updateCommentSuccess(comment))
-    );
-    resolve();
-  });
-};
+export const updateComment = data => dispatch =>
+  Api.updateComment(data).then(comment =>
+    dispatch(updateCommentSuccess(comment))
+  );
 
 const deleteCommentSuccess = comment => ({
   type: DELETE_COMMENT_SUCCESS,

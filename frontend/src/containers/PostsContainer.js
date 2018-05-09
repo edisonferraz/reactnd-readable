@@ -8,6 +8,7 @@ import {
   getPostsByCategory,
   orderBy,
   deletePost,
+  votePost,
 } from 'actions';
 import CategoryMenu from 'components/CategoryMenu';
 import PostsList from 'components/PostsList';
@@ -48,7 +49,11 @@ class PostsContainer extends Component {
         <CategoryMenu categories={categories} setSorting={this.setSorting} />
 
         {posts.length ? (
-          <PostsList posts={posts} deletePost={this.props.deletePost} />
+          <PostsList
+            posts={posts}
+            deletePost={this.props.deletePost}
+            votePost={this.props.votePost}
+          />
         ) : (
           <p className="alert alert-warning">No Posts</p>
         )}
@@ -70,6 +75,7 @@ PostsContainer.propTypes = {
   getPostsByCategory: PropTypes.func.isRequired,
   orderBy: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -83,6 +89,7 @@ const mapDispatchToProps = dispatch => ({
   getPostsByCategory: category => dispatch(getPostsByCategory(category)),
   orderBy: filter => dispatch(orderBy(filter)),
   deletePost: postId => dispatch(deletePost(postId)),
+  votePost: (postId, vote) => dispatch(votePost(postId, vote)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);

@@ -6,6 +6,7 @@ import {
   createPost,
   editPost,
   deletePost,
+  votePost,
 } from './posts';
 import { orderBy } from './orderBy';
 import {
@@ -25,6 +26,7 @@ export {
   createPost,
   editPost,
   deletePost,
+  votePost,
   getComments,
   addComment,
   updateComment,

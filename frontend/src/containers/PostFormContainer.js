@@ -13,9 +13,9 @@ class PostFormContainer extends Component {
 
     this.state = {
       fields: {
-        title: '',
-        body: '',
-        author: '',
+        title: ' ',
+        body: ' ',
+        author: ' ',
         category: '',
       },
     };
@@ -34,7 +34,8 @@ class PostFormContainer extends Component {
     if (nextProps.match.params.id) {
       this.setState({
         fields: {
-          ...nextProps.post,
+          ...this.state.fields,
+          ...nextProps.post[0],
         },
       });
     }

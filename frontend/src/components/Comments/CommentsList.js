@@ -7,7 +7,9 @@ import { convertTimestampToDate } from 'utils/date';
 const CommentsList = ({ comments, deleteComment, editComment, voteComment }) =>
   comments.length > 0 && (
     <div className="my-3 p-3 bg-white rounded box-shadow">
-      <h6 className="border-bottom border-gray pb-2 mb-0">Comments</h6>
+      <h6 className="border-bottom border-gray pb-2 mb-0">
+        Comments ({comments.length})
+      </h6>
 
       {comments.map(comment => (
         <div key={comment.id} className="media text-muted pt-3">
